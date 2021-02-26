@@ -1,0 +1,75 @@
+x-build: &build
+  context: ..
+  dockerfile: docker/build.dockerfile
+  args:
+    GO_VERSION: ${GO_VERSION}
+
+x-volume-cache: &volume-cache
+  type: bind
+  source: ${CACHE_DIR}
+  target: /root/.cache
+
+x-volume-mod: &volume-mod
+  type: bind
+  source: ${MOD_DIR}
+  target: /go/pkg/mod
+
+x-volume-target: &volume-target
+  type: bind
+  source: ${TARGET_DIR}
+  target: /multidockerfile/target
+
+x-volume-workdir: &volume-workdir
+  type: bind
+  source: ${PWD}
+  target: /multidockerfile
+  read_only: true
+
+services:
+  build:
+    build:
+      <<: *build
+      target: build
+
+    command:
+      - gox
+      - --ldflags=${LDFLAGS}
+      - --osarch=${BINARY_PLATFORMS}
+      - --output=target/multidockerfile-{{ .OS }}-{{ .Arch }}
+      - ./cmd/multidockerfile
+
+    volumes:
+      - *volume-cache
+      - *volume-mod
+      - *volume-target
+      - *volume-workdir
+
+  lint:
+    image: golangci/golangci-lint:latest
+
+    command:
+      - golangci-lint
+      - run
+
+    working_dir: /multidockerfile
+
+    volumes:
+      - *volume-cache
+      - *volume-mod
+      - *volume-workdir
+
+  test:
+    build:
+      <<: *build
+      target: test
+
+    command:
+      - go
+      - test
+      - -v
+      - ./...
+
+    volumes:
+      - *volume-cache
+      - *volume-mod
+      - *volume-workdir

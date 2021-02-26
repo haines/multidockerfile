@@ -1,0 +1,36 @@
+name: test
+
+on:
+  - push
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out source code
+        uses: actions/checkout@v2
+
+      - name: Find Go version
+        id: go-version
+        run: |
+          printf "::set-output name=go-version::"
+          scripts/go-version
+
+      - name: Install Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: ${{ steps.go-version.outputs.go-version }}
+
+      - name: Run tests
+        run: |
+          go test \
+            -coverprofile coverage.out \
+            -race \
+            -v \
+            ./...
+
+      - name: Upload test coverage
+        uses: codecov/codecov-action@v1
+        with:
+          files: coverage.out

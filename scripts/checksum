@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -o errexit
+set -o nounset
+set -o pipefail
+
+source="$1"
+target="$2"
+
+source_dir=$(dirname "${source}")
+source_file=$(basename "${source}")
+
+cd "${source_dir}"
+
+shasum --algorithm 256 "${source_file}" >"${target}"

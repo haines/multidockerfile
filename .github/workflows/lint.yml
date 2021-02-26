@@ -1,0 +1,31 @@
+name: lint
+
+on:
+  push:
+    branches-ignore:
+      - main
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out source code
+        uses: actions/checkout@v2
+
+      - name: Find Go version
+        id: go-version
+        run: |
+          printf "::set-output name=go-version::"
+          scripts/go-version
+
+      - name: Install Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: ${{ steps.go-version.outputs.go-version }}
+
+      - name: Lint code
+        uses: golangci/golangci-lint-action@v2
+        with:
+          version: latest
+          skip-go-installation: true

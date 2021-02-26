@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+set -o errexit
+set -o nounset
+set -o pipefail
+
+scripts/docker-compose down --rmi local
+
+if [[ -d "${MOD_DIR}" ]]; then
+  chmod -R u+w "${MOD_DIR}"
+fi
+
+rm -Rf \
+  "${CACHE_DIR}" \
+  "${MOD_DIR}" \
+  "${TARGET_DIR}"

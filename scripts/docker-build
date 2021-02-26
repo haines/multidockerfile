@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -o errexit
+set -o nounset
+set -o pipefail
+
+docker buildx build . \
+  --build-arg GO_VERSION="${GO_VERSION}" \
+  --build-arg LDFLAGS="${LDFLAGS}" \
+  --file docker/release.dockerfile \
+  --tag "${DOCKER_IMAGE}:${VERSION}" \
+  "$@"
