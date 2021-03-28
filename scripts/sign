@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+set -o errexit
+set -o nounset
+set -o pipefail
+
+source="$1"
+target="$2"
+
+gpg \
+  --armor \
+  --batch \
+  --detach-sign \
+  --local-user "${GPG_KEY}" \
+  --output "${target}" \
+  "${source}"

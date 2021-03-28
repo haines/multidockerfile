@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+set -o errexit
+set -o nounset
+set -o pipefail
+
+awk \
+  '
+    $1 == "go" {
+      print($2)
+      exit
+    }
+  ' \
+  go.mod

@@ -1,0 +1,96 @@
+#!/usr/bin/env bash
+set -o errexit
+set -o nounset
+set -o pipefail
+
+abort() {
+  printf "Aborting: %s\n" >&2 "$1"
+  exit 1
+}
+
+current_branch=$(git branch --show-current)
+
+if [[ "${current_branch}" != "main" ]]; then
+  abort "not on main branch"
+fi
+
+git fetch --quiet origin main
+latest_main=$(git rev-parse FETCH_HEAD)
+
+if [[ "${GIT_COMMIT}" != "${latest_main}" ]]; then
+  abort "not up-to-date with origin (currently at ${GIT_COMMIT:0:7}, origin at ${latest_main:0:7})"
+fi
+
+working_tree_status=$(git status --porcelain)
+
+if [[ -n "${working_tree_status}" ]]; then
+  abort "dirty working tree"
+fi
+
+old_version=$(<VERSION)
+
+if [[ "${VERSION}" = "${old_version}" ]]; then
+  abort "version not specified"
+fi
+
+release_notes=$(scripts/update-changelog)
+
+printf \
+  "%s\n" \
+  "${VERSION}" \
+  >VERSION
+
+git diff
+
+read -p "Publish release ${VERSION}? "
+
+if [[ "${REPLY}" != "yes" ]]; then
+  abort "cancelled"
+fi
+
+git add \
+  CHANGELOG.md \
+  VERSION
+
+git commit \
+  --message "${VERSION}" \
+  --quiet
+
+commit=$(git rev-parse HEAD)
+
+tag="v${VERSION}"
+
+git tag \
+  --local-user "${GPG_KEY}" \
+  --message "${VERSION}" \
+  --sign \
+  "${tag}"
+
+make clean release-artifacts GIT_COMMIT="${commit}"
+
+major_minor="${VERSION%.*}"
+let patch=1+"${VERSION##*.}"
+new_version="${major_minor}.${patch}-dev"
+
+printf \
+  "%s\n" \
+  "${new_version}" \
+  >VERSION
+
+git add VERSION
+
+git commit \
+  --message "Bump version to ${new_version}" \
+  --quiet
+
+git push \
+  --atomic \
+  origin \
+  main \
+  "${tag}"
+
+gh release create \
+  --notes "${release_notes}" \
+  --title "${tag}" \
+  "${tag}" \
+  target/*

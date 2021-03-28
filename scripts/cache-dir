@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+set -o errexit
+set -o nounset
+set -o pipefail
+
+if [[ -n "${MULTIDOCKERFILE_CACHE:-}" ]]; then
+  cache_dir="${MULTIDOCKERFILE_CACHE}"
+elif [[ -d "${HOME}/Library/Caches" ]]; then
+  cache_dir="${HOME}/Library/Caches/multidockerfile"
+elif [[ -n "${XDG_CACHE_HOME:-}" ]]; then
+  cache_dir="${XDG_CACHE_HOME}/multidockerfile"
+else
+  cache_dir="${HOME}/.cache/multidockerfile"
+fi
+
+printf "%s\n" "${cache_dir}"
