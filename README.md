@@ -5,6 +5,42 @@
 
 ## Usage
 
+### `multidockerfile join <inputs> ...`
+
+Join multiple Dockerfiles into a single multi-stage Dockerfile.
+
+#### Arguments
+
+| Name | Description |
+|-|-|
+| `<inputs> ...` | Paths to the Dockerfiles to be joined. |
+
+#### Options
+
+| Short | Long | Default | Description |
+|-|-|-|-|
+| `-o` | `--output` | `-` | Where to write the multi-stage Dockerfile (`-` for stdout). |
+
+#### Example
+
+```dockerfile
+# dockerfiles/one.dockerfile
+
+FROM alpine AS one
+```
+
+```dockerfile
+# dockerfiles/two.dockerfile
+
+FROM alpine AS two
+```
+
+```console
+$ multidockerfile join dockerfiles/*.dockerfile
+FROM alpine AS one
+FROM alpine AS two
+```
+
 ### `multidockerfile version`
 
 Show the `multidockerfile` version information.
