@@ -2,6 +2,16 @@
 
 `multidockerfile` is a command-line tool that allows you to split multi-stage Dockerfiles into multiple files.
 
+## Background
+
+[Multi-stage builds](https://docs.docker.com/develop/develop-images/multistage-build/) are a powerful way to optimize Dockerfiles, especially when combined with [`docker buildx bake`](https://github.com/docker/buildx/blob/master/docs/reference/buildx_bake.md) to build multiple images in parallel.
+However, Docker requires that all stages are defined in a single Dockerfile, which can become difficult to navigate as it grows.
+
+With `multidockerfile`, you can split the Dockerfile up, and recombine it with `multidockerfile join` before building the images.
+
+`multidockerfile` parses the individual Dockerfiles looking for the `FROM` and `COPY --from` instructions that create dependencies between stages.
+The combined Dockerfile is sorted so that stages with dependencies appear after the stages on which they depend.
+
 ## Installation
 
 ### From binary releases
