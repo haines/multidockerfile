@@ -5,6 +5,5 @@ set -o pipefail
 
 docker-compose \
   --file docker/compose.yml \
-  --log-level ERROR \
   --project-name multidockerfile \
   "$@"
