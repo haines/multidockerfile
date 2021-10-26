@@ -7,7 +7,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
-No notable changes.
+### Changed
+- compile with Go 1.17 ([#8](https://github.com/haines/multidockerfile/pull/8))
 
 
 ## [0.1.0] - 2021-03-28
