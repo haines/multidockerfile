@@ -42,7 +42,7 @@ My GPG public key can be obtained from
   <summary>keys.openpgp.net (<a href="https://keys.openpgp.org/search?q=andrew%40haines.org.nz">andrew@haines.org.nz</a>)</summary>
 
   ```console
-  gpg --keyserver keys.openpgp.org --recv-keys 6E225DD62262D98AAC77F9CDB16A6F178227A23E
+  $ gpg --keyserver keys.openpgp.org --recv-keys 6E225DD62262D98AAC77F9CDB16A6F178227A23E
   ```
 </details>
 
