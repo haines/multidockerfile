@@ -7,6 +7,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+No notable changes.
+
+
+## [0.1.1] - 2021-10-26
+
 ### Changed
 - compile with Go 1.17 ([#8](https://github.com/haines/multidockerfile/pull/8))
 
@@ -18,5 +23,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - `multidockerfile join` command ([#2](https://github.com/haines/multidockerfile/pull/2))
 
 
-[Unreleased]: https://github.com/haines/multidockerfile/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/haines/multidockerfile/compare/v0.1.1...HEAD
+[0.1.1]: https://github.com/haines/multidockerfile/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/haines/multidockerfile/compare/20586c3eb00aad3dde1ca63eb47dcb14ae6372d5...v0.1.0
