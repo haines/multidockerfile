@@ -4,14 +4,14 @@ go 1.17
 
 require (
 	github.com/alecthomas/kong v0.2.18
-	github.com/moby/buildkit v0.9.2
+	github.com/moby/buildkit v0.9.3
 	github.com/stretchr/testify v1.7.0
 )
 
 require (
 	github.com/agext/levenshtein v1.2.3 // indirect
-	github.com/containerd/containerd v1.5.3 // indirect
-	github.com/containerd/ttrpc v1.0.2 // indirect
+	github.com/containerd/containerd v1.5.8 // indirect
+	github.com/containerd/ttrpc v1.1.0 // indirect
 	github.com/containerd/typeurl v1.0.2 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/docker/distribution v2.7.1+incompatible // indirect
@@ -32,9 +32,9 @@ require (
 	golang.org/x/crypto v0.0.0-20210322153248-0c34fe9e7dc2 // indirect
 	golang.org/x/net v0.0.0-20210226172049-e18ecbb05110 // indirect
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c // indirect
-	golang.org/x/sys v0.0.0-20210403161142-5e06dd20ab57 // indirect
+	golang.org/x/sys v0.0.0-20210426230700-d19ff857e887 // indirect
 	google.golang.org/genproto v0.0.0-20201110150050-8816d57aaa9a // indirect
 	google.golang.org/grpc v1.38.0 // indirect
-	google.golang.org/protobuf v1.26.0 // indirect
+	google.golang.org/protobuf v1.27.1 // indirect
 	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b // indirect
 )
