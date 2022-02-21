@@ -3,7 +3,7 @@ module github.com/haines/multidockerfile
 go 1.17
 
 require (
-	github.com/alecthomas/kong v0.4.0
+	github.com/alecthomas/kong v0.4.1
 	github.com/moby/buildkit v0.9.3
 	github.com/stretchr/testify v1.7.0
 )
