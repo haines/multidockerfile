@@ -80,7 +80,7 @@ func TestReadFailsWhenInstructionCannotBeParsed(t *testing.T) {
 	err := dockerfile.Read("testdata/unknown_instruction/Dockerfile")
 	require.Error(t, err, "Unexpected nil error reading Dockerfile with unknown instruction")
 	assert.Contains(t, err.Error(), "failed to parse Dockerfile testdata/unknown_instruction/Dockerfile", "Unexpected error")
-	var unknownInstruction *instructions.UnknownInstruction
+	var unknownInstruction *instructions.UnknownInstructionError
 	assert.ErrorAs(t, err, &unknownInstruction)
 }
 
