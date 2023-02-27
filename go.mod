@@ -5,7 +5,7 @@ go 1.17
 require (
 	github.com/alecthomas/kong v0.7.1
 	github.com/moby/buildkit v0.10.6
-	github.com/stretchr/testify v1.8.1
+	github.com/stretchr/testify v1.8.2
 )
 
 require (
