@@ -3,11 +3,5 @@ linters:
     - depguard
     - gofmt
 
-linters-settings:
-  depguard:
-    include-go-root: true
-    packages:
-      - io/ioutil
-
 run:
   timeout: 5m
